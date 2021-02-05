@@ -1,13 +1,22 @@
 name: Actions Workflow
 
 on:
+  push:
+    branches: # could instead be branches-ignore
+      - master
+      - "feature/*" # matches feature/featA, * = any string except /
+      - "feature/**" # matches feature/featA/featA, ** = any string
+      - "!feature/smellyFeat" # ! = ignore this branch
+    tags:
+      - v1
   repository_dispatch:
     types: [build]
   #schedule:
   #  - cron: "0/5 * * * *"
-  # push:
-  pull_request:
-    types: [closed, assigned, opened, reopened]
+  #pull_request:
+  #  types: [closed, assigned, opened, reopened]
+  #  branches:
+  #    - master
 
 jobs:
   run-github-actions:
